@@ -1,4 +1,4 @@
 this is supply chain project 
 used in track medicine
 bassed on solidity  
-and the network is ethereum (Ganache - private network) with 10 accunts
+and the network is ethereum (Ganache - private network) with 10 account
