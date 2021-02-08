@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show</title>
+</head>
+<body>
+    <h1>Material</h1>
+   <h3>
+       {% for it in x %}
+       name : 
+       {{it[0]}}
+       code : 
+       {{it[1]}}
+       codes : 
+       {{it[2]}}
+       cost : 
+       {{it[3]}}
+        <br>
+        {{it[4]}} 
+
+       {% endfor %}
+       
+   </h3>
+</body>
+</html>

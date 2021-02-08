@@ -1,0 +1,216 @@
+pragma solidity >=0.4.21 <0.7.0;
+pragma experimental ABIEncoderV2;
+
+contract HelloWorld {
+    struct User {
+        string uname ;
+        string code;
+        string supplier;
+        string  date ;
+        
+        /////////////////////////////
+        
+        string amount ;
+        string typ;
+        string trx;
+
+    } 
+    string  []sd  ;
+    string  []sw  ;
+    User[] users;
+    uint index =0;
+    bool c = false;
+    function factory (string memory _name ,string memory _code,string memory _sup,string memory _date,string memory _am,string memory _typ,string memory tx ) public {
+       users.push(User(_name ,_code,_sup,_date,_am,_typ,tx));
+    }
+    
+     function getindex(string memory z) public  {//get index of midecin by code
+        
+        for(uint i=0; i< users.length ;i++){
+       if (keccak256(abi.encodePacked(users[i].code)) == keccak256(abi.encodePacked(z))) {
+              c =true;
+              index = i;
+              break;
+        }else{c=false;}
+        
+        }
+    }
+    ////////////////////////
+      
+     
+     function suplly1() public  {//this function splet string by - .
+        string memory z;
+        if (c==true) {
+          z= users[index].supplier ;
+             uint b =0;
+        
+        bytes memory p = "-";
+        string memory x = "";
+        bytes memory _s=bytes(z);
+        for(uint i=0 ; i < _s.length ;i++ ){
+            if(keccak256(abi.encodePacked(_s[i])) == keccak256(abi.encodePacked(p))){
+                x="";
+                for( b;b<i;b++){
+                     x= string(abi.encodePacked(x, _s[b]));
+                     
+                }
+                b=i+1;
+            sw.push(x);
+            }
+        }
+            
+        }
+    }
+      function cdate()public  { //this function splet string by / .
+      string memory z;
+        if (c==true) {
+          z= users[index].date ;
+             uint b =0;
+        
+        bytes memory p = "/";
+        string memory x = "";
+        bytes memory _s=bytes(z);
+        for(uint i=0 ; i < _s.length ;i++ ){
+            if(keccak256(abi.encodePacked(_s[i])) == keccak256(abi.encodePacked(p))){
+                x="";
+                for( b;b<i;b++){
+                     x= string(abi.encodePacked(x, _s[b]));
+                     
+                }
+                b=i+1;
+            sd.push(x);
+            }
+        }
+            
+        }
+        
+       
+    }
+   
+   function addSupplier(string memory _sa ,string memory _nS,string memory tx) public{// add supplier and check if the last supplier signed or not
+       suplly1();
+       cdate();
+       string memory tem;
+       if(sd.length == sw.length){
+       if(keccak256(abi.encodePacked(_sa)) == keccak256(abi.encodePacked(sw[sw.length-1]))){
+           tem=users[index].supplier;
+           users[index].supplier = string(abi.encodePacked(tem, _nS));
+         tem=users[index].trx;
+           users[index].trx = string(abi.encodePacked(tem, tx));
+         
+           
+       }}
+        delete sw;
+          delete sd;
+       
+   }
+   function dateSupplier(string memory _sa ,string memory _da) public{// thi function add supplier singn date 
+       
+       cdate();
+       suplly1();
+       if(sd.length == sw.length-1){
+       string memory tem;
+       if(keccak256(abi.encodePacked(_sa)) == keccak256(abi.encodePacked(sw[sw.length-1]))){
+           
+          tem= users[index].date ;
+          users[index].date = string(abi.encodePacked(tem, _da));
+          
+       
+       }}
+        delete sw;
+          delete sd;
+   }
+   
+     function show () public view returns (string memory,string memory,string memory,string memory,string memory,string memory) {
+    if(c==true){
+        return (users[index].uname ,users[index].supplier,users[index].date,users[index].amount,users[index].typ,users[index].trx);
+    }else{
+        // show medcin data
+        return("no","no","no","no","no","no");
+    }
+    }
+    function end()public{
+        c = false;
+        
+    }
+     
+     function erase(string memory z) public  { // used to delete data by code
+        
+        for(uint i=0; i< users.length ;i++){
+       if (keccak256(abi.encodePacked(users[i].code)) == keccak256(abi.encodePacked(z))) {
+            delete users[i];
+            break;
+        }
+    }
+    }
+    
+    /////////////////////////////////////////////////////
+    struct Car {
+       
+       string carID;
+       string transactionID;
+       string UintID;
+       string stratDate;
+       string endDate;
+       string tempr;
+       string CurruntTEMP;
+    } 
+    Car[] car;
+    function addCar_TransactionID(string memory CID,string memory TID ) public{
+        car.push(Car(CID,TID,"","","","",""));
+    }
+   function add_Uints_ToTransction(string memory TID,string memory UID ) public{
+          uint indx=0;      
+        for(uint i=0; i< car.length ;i++){
+       if (keccak256(abi.encodePacked(car[i].transactionID)) == keccak256(abi.encodePacked(TID))) {
+           car[i].UintID =string(abi.encodePacked(car[i].UintID, UID));
+           break;
+        }
+    }
+   }
+   function add_Start_time_ToTransction(string memory TID,string memory Sdate ) public{
+          uint indx=0;      
+        for(uint i=0; i< car.length ;i++){
+       if (keccak256(abi.encodePacked(car[i].transactionID)) == keccak256(abi.encodePacked(TID))) {
+           car[i].stratDate = Sdate;
+           break;
+        }
+    }
+   }
+    function add_End_time_ToTransction(string memory TID,string memory Sdate ) public{
+          uint indx=0;      
+        for(uint i=0; i< car.length ;i++){
+       if (keccak256(abi.encodePacked(car[i].transactionID)) == keccak256(abi.encodePacked(TID))) {
+           car[i].endDate = Sdate;
+           break;
+        }
+    }
+   }
+    uint indx1=0;
+   function start_trac(string memory TID) public{ // trac 1
+               
+        for(uint i=0; i< car.length ;i++){
+       if (keccak256(abi.encodePacked(car[i].transactionID)) == keccak256(abi.encodePacked(TID))) {
+           indx1 = i;
+           break;
+        }
+    }
+   }
+   function GET_CURRNT_TEMP() public view returns (string memory){ // trac 2
+       return car[indx1].CurruntTEMP;
+   }
+   function add_temp(string memory TID,string memory temp) public{ 
+               
+        for(uint i=0; i< car.length ;i++){
+       if (keccak256(abi.encodePacked(car[i].transactionID)) == keccak256(abi.encodePacked(TID))) {
+           
+           car[i].tempr = string(abi.encodePacked(car[i].tempr , temp)) ;
+           break;
+        }
+    }
+   }
+   function show_Track() public view returns (string memory , string memory ,string memory , string memory , string memory ){ // trac 2.1
+       return (car[indx1].carID,car[indx1].UintID,car[indx1].stratDate,car[indx1].tempr,car[indx1].endDate);
+   }
+    
+}

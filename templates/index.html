@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>supply_chain</title>
+</head>
+<body>
+   <form action ="http://192.168.1.4:8080/car" method="post">
+        <h3>add car</h3>
+        car ID:
+        <input type="text" name='carID'style="width: 150px;">
+        transaction ID:
+        <input type="text" name='TransID'style="width: 150px;">
+        <input type="submit" value="Submit">
+   </form>
+   
+   <form action ="http://192.168.1.4:8080/unite" method="post">
+     <h3>scan uinte to add</h3>
+     transaction ID:
+     <input type="text" name='TransID'style="width: 150px;">
+     <input type="submit" value="Submit">
+</form>
+<form action ="http://192.168.1.4:8080/track" method="post">
+     <h3>start track</h3>
+     transaction ID:
+     <input type="text" name='TransID'style="width: 150px;">
+     <input type="submit" value="Submit">
+</form>
+<form action ="http://192.168.1.4:8080/show" method="post">
+     <h3>show</h3>
+     transaction ID:
+     <input type="text" name='TransID'style="width: 150px;">
+     <input type="submit" value="Submit">
+</form>
+</body>
+</html>
